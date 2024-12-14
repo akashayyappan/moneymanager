@@ -16,28 +16,30 @@ const dbRouter = express.Router();
 // });
 
 dbRouter.post('/', (req, res) => {
-  try {
-    const statement = new Statement({
-      createOn: new Date.now(),
-      createdBy: 'akash',
-      bank: 'ICICI',
-      fromPeriod: new Date.now(),
-      toPeriod: new Date.now(),
-      records: {
-        date: new Date.now(),
-        description: String,
-        withrawAmount: 0,
-        depositNumber: 0,
-        balance: 0
-      }
-    });
+  const statement = new Statement({
+    createOn: Date.now(),
+    createdBy: 'akash',
+    bank: 'ICICI',
+    fromPeriod: Date.now(),
+    toPeriod: Date.now(),
+    records: {
+      date: Date.now(),
+      description: 'something',
+      withrawAmount: 0,
+      depositNumber: 0,
+      balance: 0
+    }
+  });
 
-    statement.save()
-      .then(() => console.log("Save Successfully"))
-      .catch(err => console.log(err));
-  } catch (error) {
-    res.send(error).status(500);
-  }
+  statement.save()
+    .then(() => {
+      console.log('Save Successfully')
+      res.send().status(200);
+    })
+    .catch(err => {
+      console.log('Error', err);
+      res.status(400).send(err);
+    });
 });
 
 export default dbRouter;
