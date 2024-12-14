@@ -8,6 +8,7 @@ import passport from 'passport';
 import initializeDB from './db/connection.js';
 import userRouter from './routes/auth.js';
 import passportRouter from './middleware/passport.js';
+import statementRouter from './routes/statement.js';
 
 function startServer() {
   const PORT = process.env.PORT || 5000;
@@ -28,6 +29,7 @@ function startServer() {
   app.use(userRouter);
   app.use(passportRouter);
   app.use(passport.authenticate('local'));
+  app.use('/statement', statementRouter);
 
   // Load the /posts routes
   // app.use('/test', dbRouter);

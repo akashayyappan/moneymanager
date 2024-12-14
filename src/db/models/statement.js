@@ -1,18 +1,16 @@
 import mongoose from 'mongoose';
 
 const statementSchema = new mongoose.Schema({
-  createOn: Date,
-  createdBy: String,
-  bank: String,
-  fromPeriod: Date,
-  toPeriod: Date,
-  records: {
-    date: Date,
-    description: String,
-    withrawAmount: Number,
-    depositNumber: Number,
-    balance: Number
-  }
+  date: { type: Date, required: true },
+  bank: { type: String, required: true },
+  balance: { type: Number, required: true },
+  createOn: { type: Date, required: true, default: Date.now() },
+  createdBy: { type: String, required: true },
+  description: { type: String, required: true },
+  withrawAmount: { type: Number, required: true },
+  depositNumber: { type: Number, required: true },
+  vendorName: { type: String },
+  account: { type: String },
 });
 
 const Statement = mongoose.model('statement', statementSchema);
