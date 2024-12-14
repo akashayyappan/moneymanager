@@ -36,4 +36,10 @@ passport.deserializeUser((id, done) => {
   done(null, { id });
 });
 
+passportRouter.post('/login',
+  passport.authenticate('local'),
+  (req, res) => {
+    res.status(200).send('ok');
+  });
+
 export default passportRouter;

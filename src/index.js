@@ -27,9 +27,6 @@ function startServer() {
   // load routes
   app.use(userRouter);
   app.use(passportRouter);
-  app.post('/login', passport.authenticate('local'), (req, res) => {
-    res.status(200).send('ok');
-  });
   app.use(passport.authenticate('local'));
 
   // Load the /posts routes
