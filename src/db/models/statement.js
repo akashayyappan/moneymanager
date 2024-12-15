@@ -8,7 +8,7 @@ const statementSchema = new mongoose.Schema({
   createdBy: { type: String, required: true },
   description: { type: String, required: true },
   withrawAmount: { type: Number, required: true },
-  depositNumber: { type: Number, required: true },
+  depositAmount: { type: Number, required: true },
   vendorName: { type: String },
   account: { type: String },
 });

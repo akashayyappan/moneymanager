@@ -3,33 +3,33 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
-import passport from 'passport';
+import fileUpload from 'express-fileupload';
 
 import initializeDB from './db/connection.js';
 import userRouter from './routes/auth.js';
-import passportRouter from './middleware/passport.js';
 import statementRouter from './routes/statement.js';
+import accountRouter from './routes/account.js';
+import validateUserRoute from './middleware/validateUser.js';
 
 function startServer() {
-  const PORT = process.env.PORT || 5000;
-  const app = express();
-  app.use(cors());
-
   try {
     initializeDB();
   } catch (error) {
     console.log('Error initializing DB', error);
   }
 
-  app.use(express.json());
+  const PORT = process.env.PORT || 5000;
+  const app = express();
+  app.use(cors());
 
-  app.get('/', (req, res) => res.status(200).send('ok'));
+  app.use(express.json());
+  app.use(fileUpload());
 
   // load routes
   app.use(userRouter);
-  app.use(passportRouter);
-  app.use(passport.authenticate('local'));
+  app.use(validateUserRoute);
   app.use('/statement', statementRouter);
+  app.use('/account', accountRouter);
 
   // Load the /posts routes
   // app.use('/test', dbRouter);
