@@ -50,7 +50,7 @@ const newStatement = async (row, user) => {
     date: date.getTime(),
     bank: 'ICICI Bank',
     balance: +row[9],
-    createdBy: user?._id || 'akash',
+    createdBy: user?._id,
     description: row[6],
     withrawAmount: +row[7],
     depositAmount: +row[8],
@@ -58,7 +58,7 @@ const newStatement = async (row, user) => {
   });
 
   const existingStatement = await Statement.findOne({
-    bank: statement.bank, balance: statement.balance,
+    bank: statement.bank, balance: statement.balance, description: statement.description,
     withrawAmount: statement.withrawAmount, depositAmount: statement.depositAmount
   });
   if (existingStatement) {

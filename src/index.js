@@ -10,6 +10,7 @@ import userRouter from './routes/auth.js';
 import statementRouter from './routes/statement.js';
 import accountRouter from './routes/account.js';
 import validateUserRoute from './middleware/validateUser.js';
+import vendorRouter from './routes/vendor.js';
 
 function startServer() {
   try {
@@ -30,6 +31,7 @@ function startServer() {
   app.use(validateUserRoute);
   app.use('/statement', statementRouter);
   app.use('/account', accountRouter);
+  app.use('/vendor', vendorRouter);
 
   // Load the /posts routes
   // app.use('/test', dbRouter);
