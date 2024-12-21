@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../db/models/user.js';
 import Response from '../model/response.js';
 import jwt from 'jsonwebtoken';
+import validateUserRoute from '../middleware/validateUser.js';
 
 const userRouter = express.Router();
 
@@ -35,5 +36,20 @@ userRouter.post('/login', (req, res) => {
     res.status(404).send(Response('User not found'));
   });
 });
+
+userRouter.get('/user', validateUserRoute, (req, res) => {
+  const user = req.user;
+  if (user) {
+    delete user.password;
+    res.send(Response('User successfuly retireved', {
+      _id: user._id,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName
+    }));
+  } else {
+    res.status(401).send(Response('Not Authorised'));
+  }
+})
 
 export default userRouter;
